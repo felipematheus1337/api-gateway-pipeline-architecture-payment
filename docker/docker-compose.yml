@@ -1,0 +1,22 @@
+version: "3.9"
+
+services:
+  mongodb:
+    image: mongo:7
+    container_name: pipeline-mongodb
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_DATABASE: pipeline_db
+    volumes:
+      - mongodb_data:/data/db
+    networks:
+      - pipeline-network
+
+volumes:
+  mongodb_data:
+
+networks:
+  pipeline-network:
+    driver: bridge

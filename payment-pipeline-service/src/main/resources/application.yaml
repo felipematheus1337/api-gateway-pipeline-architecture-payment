@@ -1,0 +1,50 @@
+server:
+  port: 8081
+
+spring:
+  application:
+    name: pipeline-service
+
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/pipeline_db
+      auto-index-creation: true
+
+  jackson:
+    serialization:
+      indent_output: true
+
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: ${MAIL_USERNAME:example@gmail.com}
+    password: ${MAIL_PASSWORD:password}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+
+logging:
+  level:
+    root: INFO
+    org.springframework: INFO
+    com.pipeline: DEBUG
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
+
+pipeline:
+  stages:
+    validation:
+      enabled: true
+    payment:
+      enabled: true
+    notification:
+      enabled: true
