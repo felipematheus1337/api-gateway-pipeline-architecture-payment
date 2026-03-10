@@ -2,7 +2,7 @@ package com.pipeline.service.application.workflow.pipes;
 
 import com.pipeline.service.application.workflow.context.CreateDadosPagamentoContext;
 import com.pipeline.service.application.workflow.context.DadosPagamentoContext;
-import com.pipeline.service.application.workflow.filters.Filter;
+import com.pipeline.service.application.workflow.filters.*;
 import com.pipeline.service.domain.request.CreateDadosPagamentoRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -15,7 +15,17 @@ import java.util.List;
 @Slf4j
 public class CreateDadosPagamentoPipeline {
 
-    private final List<Filter<DadosPagamentoContext>> steps;
+    private final List<Filter<CreateDadosPagamentoContext>> steps;
+
+    public CreateDadosPagamentoPipeline(
+            CreateDadosPagamentoValidationFilter vf,
+            CreateDadosPagamentoPaymentFilter pf,
+            CreateDadosPagamentoCollectionTransformFilter tf,
+            CreateDadosPagamentoPersistenceFilter ps,
+            CreateDadosPagamentoNotificationFilter nf
+            ) {
+        this.steps = List.of(vf, pf, tf, ps, nf);
+    }
 
     public void execute(CreateDadosPagamentoRequest request) {
       log.info("::: Request Receive -> {}", request.toString());
@@ -24,7 +34,6 @@ public class CreateDadosPagamentoPipeline {
           log.info("::: Applying filter -> {} ", step.getClass().getName());
           step.apply(ctx);
       }
-
     }
 
 }

@@ -5,5 +5,5 @@ import com.pipeline.service.domain.request.CreateDadosPagamentoRequest;
 
 public interface CreateDadosPagamentoUseCase {
 
-    DadosPagamentoCollection create(CreateDadosPagamentoRequest dados);
+    void create(CreateDadosPagamentoRequest dados);
 }
