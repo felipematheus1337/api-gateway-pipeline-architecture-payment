@@ -4,7 +4,6 @@ import com.pipeline.service.domain.PaymentType;
 import jakarta.validation.constraints.Min;
 import lombok.Builder;
 import org.hibernate.validator.constraints.br.CPF;
-
 import java.math.BigDecimal;
 
 @Builder
